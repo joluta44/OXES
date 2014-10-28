@@ -58,14 +58,34 @@
             <article id="main_article" class="indented splash">
                 <div class="form">
                     <fieldset data-icon="user">
-
                         <input type="text" id="user" placeholder="Usuario"/>
                     </fieldset>
                     <fieldset data-icon="asterisk">
-
                         <input type="password" id="password" placeholder="Password"/>
                     </fieldset>
                     <a href="#" id="login" class="button anchor" data-icon="user" data-label="Ingresar"></a>
+                    <a href="#" id="registrarse" class="button anchor" data-icon="key" data-label="Registrarse"></a>
+                </div>
+            </article>
+        </section>
+
+        <section id="registrarUsuario">
+            <article id="artRegistrarUsuario" class="indented splash">
+                <div class="form">
+                    <fieldset data-icon="user">
+                        <input type="text" id="user" placeholder="Cedula"/>
+                    </fieldset>
+                    <fieldset data-icon="user">
+                        <input type="text" id="user" placeholder="Usuario"/>
+                    </fieldset>
+                    <fieldset data-icon="asterisk">
+                        <input type="password" id="password" placeholder="Clave"/>
+                    </fieldset>
+                    <fieldset data-icon="user">
+                        <input type="text" id="user" placeholder="Correo"/>
+                    </fieldset>
+                    <a href="#" id="registrarUsuario" class="button anchor" data-icon="user" data-label="Crear Usuario"></a>
+
                 </div>
             </article>
         </section>
@@ -143,6 +163,9 @@
                         };
                         Lungo.Service.get(url, data, parseResponse, "json");
 
+                    });
+                    $$("#registrarse").on("tap", function() {
+                        Lungo.Router.section("registrarUsuario");
                     });
                 }
                 $$("#logout").on("tap", function() {
