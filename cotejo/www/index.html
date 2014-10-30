@@ -154,17 +154,17 @@
                 history: false
             });
 
-            Lungo.ready(function() {
+            Lungo.ready(function () {
                 if (sessionStorage.getItem("correo"))
                 {
                     Lungo.Router.section("main_section");
                 }
                 else
                 {
-                    $$("#login").on("tap", function() {
+                    $$("#login").on("tap", function () {
                         var url = "http://oxes-cotejo.rhcloud.com/webresources/generic/get/usuario/" + $$("#user").val();
                         var data = {id: 25, length: 50};
-                        var parseResponse = function(resp) {
+                        var parseResponse = function (resp) {
 
                             sessionStorage["correo"] = resp.correo;
                             sessionStorage["nombre"] = resp.nombre + " " + resp.apellido;
@@ -176,15 +176,15 @@
 
                     });
                 }
-                $$("#registrarse").on("tap", function() {
+                $$("#registrarse").on("tap", function () {
                     Lungo.Router.section("registrarUsuario");
                 });
-                $$("#logout").on("tap", function() {
+                $$("#logout").on("tap", function () {
                     sessionStorage.clear();
                     Lungo.Router.section("sec_login");
                 });
-                $$("#almacenarUsuario").on("tap", function() {
-                    //var webservice = "http://localhost:8081/webresources/generic/post/usuario";
+                $$("#almacenarUsuario").on("tap", function () {
+                    //var webservice = "http://10.1.244.33:8081/webresources/generic/post/usuario";
                     var webservice = "http://oxes-cotejo.rhcloud.com/webresources/generic/post/usuario";
                     var usuario = {
                         nombre: null, codigo: null, clave: null, correo: null, edad: 0, listaGoles: null, apellido: null
@@ -201,19 +201,42 @@
                         data: JSON.stringify(usuario),
                         dataType: 'json',
                         contentType: 'application/json',
-                        success: function(resp) {
-                            alert('Usuario creado correctamente.');
+                        success: function (resp) {
                             Lungo.Router.section("sec_login");
+                            alert('Usuario creado correctamente.');
                         },
-                        error: function(e) {
-                            alert("Ocurrio un error al crear el usuario.");
+                        error: function (e) {
+                            var domParser = new DOMParser();
+                            var oDOM = domParser.parseFromString(e.responseText, "text/xml");
+                            var mensaje = verMensaje(oDOM.childNodes);
+                            if (mensaje == null) {
+                                alert('Error al crear el usuario, contacte a soporte');
+                            } else {
+                                alert(mensaje);
+                            }
                         }
                     });
                 });
             });
 
-
+            function verMensaje(childNodes) {
+                for (var i = 0; i < childNodes.length; i++) {
+                    if ((childNodes[i].nodeName === 'html' && childNodes[i].childNodes.length > 0) || childNodes[i].nodeName === 'body') {
+                        return verMensaje(childNodes[i].childNodes);
+                    }
+                    if (childNodes[i].nodeName === 'p') {
+                        if (childNodes[i].innerHTML.indexOf('mensaje') !== -1) {
+                            for (var c = 0; c < childNodes[i].childNodes.length; c++) {
+                                if (childNodes[i].childNodes[c].nodeName === 'u') {
+                                    return childNodes[i].childNodes[c].innerHTML;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         </script>
+
         <script src="static/javascripts/app.js"></script>
     </body>
 </html>
