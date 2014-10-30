@@ -79,19 +79,19 @@
                         <h2>REGISTRO USUARIO</h2>
                     </header>
                     <fieldset data-icon="user">
-                        <input type="text" id="codigoNuevo" placeholder="Cedula"/>
+                        <input type="text" id="correoNuevo" placeholder="Correo"/>
                     </fieldset>
                     <fieldset data-icon="user">
                         <input type="text" id="nombreNuevo" placeholder="Nombre"/>
                     </fieldset>
                     <fieldset data-icon="user">
-                        <input type="text" id="apellidoNuevo" placeholder="Apellido"/>
-                    </fieldset>
-                    <fieldset data-icon="user">
-                        <input type="text" id="correoNuevo" placeholder="Correo"/>
+                        <input type="text" id="apellidoNuevo" placeholder="Apellidos"/>
                     </fieldset>
                     <fieldset data-icon="asterisk">
                         <input type="password" id="claveNuevo" placeholder="Clave"/>
+                    </fieldset>
+                    <fieldset data-icon="user">
+                        <input type="password" id="claveNuevoConfirmacion" placeholder="Confirma Clave"/>
                     </fieldset>
 
                     <a href="#" id="almacenarUsuario" class="button anchor" data-icon="user" data-label="Crear Usuario"></a>
@@ -120,7 +120,7 @@
                 <a href="#" data-view-article="icon-social" data-label="Social"  data-async="static/articles/icon-social.html"></a>
                 <a href="#" data-view-article="icon-item" data-label="Item" data-async="static/articles/icon-item.html"></a>
             </nav>
-
+0
             <nav data-control="groupbar" data-article="list list-indented list-examples">
                 <a href="#" data-view-article="list" data-icon="checkmark" data-label="Normal"></a>
                 <a href="#" data-view-article="list-indented" data-label="Indented"></a>
@@ -184,16 +184,16 @@
                     Lungo.Router.section("sec_login");
                 });
                 $$("#almacenarUsuario").on("tap", function () {
-                    //var webservice = "http://10.1.244.33:8081/webresources/generic/post/usuario";
-                    var webservice = "http://oxes-cotejo.rhcloud.com/webresources/generic/post/usuario";
+                    var webservice = "http://10.1.244.33:8081/webresources/generic/post/usuario";
+                    //var webservice = "http://oxes-cotejo.rhcloud.com/webresources/generic/post/usuario";
                     var usuario = {
-                        nombre: null, codigo: null, clave: null, correo: null, edad: 0, listaGoles: null, apellido: null
+                        nombre: null, clave: null, claveConfirmacion: null, correo: null, edad: 0, listaGoles: null, apellido: null
                     };
-                    usuario.codigo = $$("#codigoNuevo").val();
+                    usuario.correo = $$("#correoNuevo").val();
                     usuario.nombre = $$("#nombreNuevo").val();
                     usuario.apellido = $$("#apellidoNuevo").val();
-                    usuario.correo = $$("#correoNuevo").val();
                     usuario.clave = $$("#claveNuevo").val();
+                    usuario.claveConfirmacion = $$("#claveNuevoConfirmacion").val();
 
                     $.ajax({
                         url: webservice,
