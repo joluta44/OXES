@@ -120,7 +120,7 @@
                 <a href="#" data-view-article="icon-social" data-label="Social"  data-async="static/articles/icon-social.html"></a>
                 <a href="#" data-view-article="icon-item" data-label="Item" data-async="static/articles/icon-item.html"></a>
             </nav>
-0
+            0
             <nav data-control="groupbar" data-article="list list-indented list-examples">
                 <a href="#" data-view-article="list" data-icon="checkmark" data-label="Normal"></a>
                 <a href="#" data-view-article="list-indented" data-label="Indented"></a>
@@ -206,9 +206,8 @@
                             alert('Usuario creado correctamente.');
                         },
                         error: function (e) {
-                            var domParser = new DOMParser();
-                            var oDOM = domParser.parseFromString(e.responseText, "text/xml");
-                            var mensaje = verMensaje(oDOM.childNodes);
+                            var html = $.parseHTML(e.responseText)
+                            var mensaje = message(html);
                             if (mensaje == null) {
                                 alert('Error al crear el usuario, contacte a soporte');
                             } else {
@@ -219,24 +218,15 @@
                 });
             });
 
-            function verMensaje(childNodes) {
-                for (var i = 0; i < childNodes.length; i++) {
-                    if ((childNodes[i].nodeName === 'html' && childNodes[i].childNodes.length > 0) || childNodes[i].nodeName === 'body') {
-                        return verMensaje(childNodes[i].childNodes);
-                    }
-                    if (childNodes[i].nodeName === 'p') {
-                        if (childNodes[i].innerHTML.indexOf('mensaje') !== -1) {
-                            for (var c = 0; c < childNodes[i].childNodes.length; c++) {
-                                if (childNodes[i].childNodes[c].nodeName === 'u') {
-                                    return childNodes[i].childNodes[c].innerHTML;
-                                }
-                            }
-                        }
+            function message(html) {
+                for (var i = 0; i < html.length; i++) {
+                    if (html[i].innerHTML != null && html[i].innerHTML.indexOf('java.lang') !== -1) {
+                        return html[i].innerHTML.split(":")[1];
                     }
                 }
             }
-        </script>
 
+        </script>
         <script src="static/javascripts/app.js"></script>
     </body>
 </html>
