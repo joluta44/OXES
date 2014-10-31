@@ -59,10 +59,10 @@
             <article id="main_article" class="indented splash">
                 <div class="form">
                     <fieldset data-icon="user">
-                        <input type="text" id="user" placeholder="Usuario"/>
+                        <input type="text" id="correo" placeholder="Correo"/>
                     </fieldset>
                     <fieldset data-icon="asterisk">
-                        <input type="password" id="password" placeholder="Password"/>
+                        <input type="password" id="clave" placeholder="Clave"/>
                     </fieldset>
                     <a href="#" id="login" class="button anchor" data-icon="user" data-label="Ingresar"></a>
                     <a href="#" id="registrarse" class="button anchor" data-icon="key" data-label="Registrarse"></a>
@@ -90,7 +90,7 @@
                     <fieldset data-icon="asterisk">
                         <input type="password" id="claveNuevo" placeholder="Clave"/>
                     </fieldset>
-                    <fieldset data-icon="user">
+                    <fieldset data-icon="asterisk">
                         <input type="password" id="claveNuevoConfirmacion" placeholder="Confirma Clave"/>
                     </fieldset>
 
@@ -155,6 +155,11 @@
             });
 
             Lungo.ready(function () {
+                var servicio = "http://oxes-cotejo.rhcloud.com/webresources/generic/";
+                //var servicio = "http://10.1.244.33:8081/webresources/generic/";
+                var usuario = {
+                    nombre: null, clave: null, claveConfirmacion: null, correo: null, edad: 0, listaGoles: null, apellido: null
+                };
                 if (sessionStorage.getItem("correo"))
                 {
                     Lungo.Router.section("main_section");
@@ -162,18 +167,51 @@
                 else
                 {
                     $$("#login").on("tap", function () {
-                        var url = "http://oxes-cotejo.rhcloud.com/webresources/generic/get/usuario/" + $$("#user").val();
-                        var data = {id: 25, length: 50};
-                        var parseResponse = function (resp) {
+                        //var url = "http://oxes-cotejo.rhcloud.com/webresources/generic/get/usuario/" + $$("#user").val();
+                        var url = servicio + "post/validarUsuario";
+                        //var data = {id: 25, length: 50};
+                        //var parseResponse = function (resp) {
+                        //sessionStorage["correo"] = resp.correo;
+                        //sessionStorage["nombre"] = resp.nombre + " " + resp.apellido;
+                        //Lungo.Router.section("main_section");
+                        //$$("#login_correo").html(sessionStorage.getItem("correo"));
+                        //$$("#login_nombre").html(sessionStorage.getItem("nombre"));
+                        //};
+                        //Lungo.Service.get(url, data, parseResponse, "json");
 
-                            sessionStorage["correo"] = resp.correo;
-                            sessionStorage["nombre"] = resp.nombre + " " + resp.apellido;
-                            Lungo.Router.section("main_section");
-                            $$("#login_correo").html(sessionStorage.getItem("correo"));
-                            $$("#login_nombre").html(sessionStorage.getItem("nombre"));
-                        };
-                        Lungo.Service.get(url, data, parseResponse, "json");
+                        usuario.correo = $$("#correo").val();
+                        usuario.clave = $$("#clave").val();
 
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: JSON.stringify(usuario),
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (resp) {
+                                // var x2js = new X2JS();
+                                // var jsonText = x2js.xml2json(resp);
+                                // alert('codigoIPS==>' + jsonText.paciente.codigoIPS + ' apels==>' + jsonText.paciente.apels + 'nombre==>' + jsonText.paciente.nombs);
+                                //Lungo.Router.section("main_section");
+                                //$$("#login_correo").html(sessionStorage.getItem("correo"));
+                                //$$("#login_nombre").html(sessionStorage.getItem("nombre"));
+                                Lungo.Router.section("main_section");
+                                sessionStorage["correo"] = resp.correo;
+                                sessionStorage["nombre"] = resp.nombre + " " + resp.apellido;
+                                $$("#login_correo").html(sessionStorage.getItem("correo"));
+                                $$("#login_nombre").html(sessionStorage.getItem("nombre"));
+                                alert('Bienvenido ' + resp.nombre);
+                            },
+                            error: function (e) {
+                                var html = $.parseHTML(e.responseText)
+                                var mensaje = message(html);
+                                if (mensaje == null) {
+                                    alert('Error al crear el usuario, contacte a soporte');
+                                } else {
+                                    alert(mensaje);
+                                }
+                            }
+                        });
                     });
                 }
                 $$("#registrarse").on("tap", function () {
@@ -185,10 +223,9 @@
                 });
                 $$("#almacenarUsuario").on("tap", function () {
                     //var webservice = "http://10.1.244.33:8081/webresources/generic/post/usuario";
-                    var webservice = "http://oxes-cotejo.rhcloud.com/webresources/generic/post/usuario";
-                    var usuario = {
-                        nombre: null, clave: null, claveConfirmacion: null, correo: null, edad: 0, listaGoles: null, apellido: null
-                    };
+                    //var webservice = "http://oxes-cotejo.rhcloud.com/webresources/generic/post/usuario";
+                    var url = servicio + "post/usuario";
+
                     usuario.correo = $$("#correoNuevo").val();
                     usuario.nombre = $$("#nombreNuevo").val();
                     usuario.apellido = $$("#apellidoNuevo").val();
@@ -196,7 +233,7 @@
                     usuario.claveConfirmacion = $$("#claveNuevoConfirmacion").val();
 
                     $.ajax({
-                        url: webservice,
+                        url: url,
                         type: 'POST',
                         data: JSON.stringify(usuario),
                         dataType: 'json',
