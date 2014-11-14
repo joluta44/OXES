@@ -65,17 +65,19 @@
                         <input type="password" id="clave" placeholder="Clave"/>
                     </fieldset>
                     <a href="#" id="login" class="button anchor" data-icon="user" data-label="Ingresar"></a>
-                    <a href="#" id="registrarse" class="button anchor" data-icon="key" data-label="Registrarse"></a>
+                    <a href="#" data-view-section="registrarUsuario" class="button anchor" data-icon="key" data-label="Registrarse"></a>
                 </div>
             </article>
         </section>
 
         <section id="registrarUsuario">
+            <header data-title="REGISTRO USUARIO" >
+                <nav>
+                    <a href="#" data-view-section="sec_login" data-icon="chevron-left"></a>
+                </nav>
+            </header>
             <article id="artRegistrarUsuario" class="indented splash">
                 <div class="form">
-                    <header>
-                        <h2>REGISTRO USUARIO</h2>
-                    </header>
                     <fieldset data-icon="user">
                         <input type="text" id="correoNuevo" placeholder="Correo"/>
                     </fieldset>
@@ -92,7 +94,6 @@
                         <input type="password" id="claveNuevoConfirmacion" placeholder="Confirma Clave"/>
                     </fieldset>
                     <a href="#" id="almacenarUsuario" class="button anchor" data-icon="user" data-label="Crear Usuario"></a>
-                    <a href="#" id="regresarLogin" class="button anchor" data-icon="key" data-label="Regresar"></a> 
                 </div>
             </article>
         </section>
@@ -121,7 +122,7 @@
                 <a href="#" data-view-article="rival" data-label="Rival"></a>
                 <a href="#" data-view-article="cancha" data-label="Cancha"></a>
             </nav>
-			
+
             <nav data-control="groupbar" data-article="juego-en mis-quipos">
                 <a href="#" data-view-article="juego-en" data-icon="checkmark" data-label="Juego En"></a>
                 <a href="#" data-view-article="mis-quipos" data-label="Mis Equipos"></a>
@@ -132,7 +133,6 @@
                     <li class="text small">
                         Noticias de Cotejos creados públicos y Eventos
                     </li>
-
                 </ul>
             </article>
         </section>
@@ -214,12 +214,9 @@
                         });
                     });
                 }
-                $$("#registrarse").on("tap", function () {
-                    Lungo.Router.section("registrarUsuario");
-                });
-                $$("#regresarLogin").on("tap", function () {
-                    Lungo.Router.section("sec_login");
-                });
+                //$$("#registrarse").on("tap", function () {
+                //  Lungo.Router.section("registrarUsuario");
+                //});
                 $$("#logout").on("tap", function () {
                     sessionStorage.clear();
                     Lungo.Router.section("sec_login");
