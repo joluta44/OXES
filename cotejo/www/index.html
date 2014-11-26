@@ -94,7 +94,7 @@
                     <fieldset data-icon="asterisk">
                         <input type="password" id="claveNuevoConfirmacion" placeholder="Confirma Clave"/>
                     </fieldset>
-                    <a href="#" id="almacenarUsuario" class="button anchor" data-icon="user" data-label="Crear Usuario"></a>
+                    <a href="#" id="almacenar_usuario" class="button anchor" data-icon="user" data-label="Crear Usuario"></a>
                 </div>
             </article>
         </section>
@@ -106,7 +106,6 @@
                 </nav>
                 <img src="static/images/logo.png" class="title centered"/>
                 <nav class="on-right">
-
                     <!--<a href="#"  ><abbr class="text tiny ">v1.0</abbr></a> -->
                 </nav>
             </header>
@@ -168,18 +167,8 @@
                 else
                 {
                     $$("#login").on("tap", function () {
-                        //var url = "http://oxes-cotejo.rhcloud.com/webresources/generic/get/usuario/" + $$("#user").val();
-                        var url = servicio + "post/validarUsuario";
-                        //var data = {id: 25, length: 50};
-                        //var parseResponse = function (resp) {
-                        //sessionStorage["correo"] = resp.correo;
-                        //sessionStorage["nombre"] = resp.nombre + " " + resp.apellido;
-                        //Lungo.Router.section("main_section");
-                        //$$("#login_correo").html(sessionStorage.getItem("correo"));
-                        //$$("#login_nombre").html(sessionStorage.getItem("nombre"));
-                        //};
-                        //Lungo.Service.get(url, data, parseResponse, "json");
 
+                        var url = servicio + "post/validarUsuario";
                         usuario.correo = $$("#correo").val();
                         usuario.clave = $$("#clave").val();
 
@@ -190,18 +179,13 @@
                             dataType: 'json',
                             contentType: 'application/json',
                             success: function (resp) {
-                                // var x2js = new X2JS();
-                                // var jsonText = x2js.xml2json(resp);
-                                // alert('codigoIPS==>' + jsonText.paciente.codigoIPS + ' apels==>' + jsonText.paciente.apels + 'nombre==>' + jsonText.paciente.nombs);
-                                //Lungo.Router.section("main_section");
-                                //$$("#login_correo").html(sessionStorage.getItem("correo"));
-                                //$$("#login_nombre").html(sessionStorage.getItem("nombre"));
                                 Lungo.Router.section("main_section");
+                                sessionStorage["codigo"] = resp.codigo;
                                 sessionStorage["correo"] = resp.correo;
-                                sessionStorage["nombre"] = resp.nombre + " " + resp.apellido;
+                                sessionStorage["nombre"] = resp.nombre;
+                                sessionStorage["apellido"] = resp.apellido;
                                 $$("#login_correo").html(sessionStorage.getItem("correo"));
-                                $$("#login_nombre").html(sessionStorage.getItem("nombre"));
-                                alert('Bienvenido ' + resp.nombre);
+                                $$("#login_nombre").html(sessionStorage.getItem("nombre") + ' ' + sessionStorage.getItem("apellido"));
                             },
                             error: function (e) {
                                 var html = $.parseHTML(e.responseText)
@@ -215,18 +199,13 @@
                         });
                     });
                 }
-                //$$("#registrarse").on("tap", function () {
-                //  Lungo.Router.section("registrarUsuario");
-                //});
                 $$("#logout").on("tap", function () {
                     sessionStorage.clear();
                     Lungo.Router.section("sec_login");
                 });
-                $$("#almacenarUsuario").on("tap", function () {
-                    //var webservice = "http://10.1.244.33:8081/webresources/generic/post/usuario";
-                    //var webservice = "http://oxes-cotejo.rhcloud.com/webresources/generic/post/usuario";
-                    var url = servicio + "post/usuario";
+                $$("#almacenar_usuario").on("tap", function () {
 
+                    var url = servicio + "post/usuario";
                     usuario.correo = $$("#correoNuevo").val();
                     usuario.nombre = $$("#nombreNuevo").val();
                     usuario.apellido = $$("#apellidoNuevo").val();
@@ -254,6 +233,14 @@
                         }
                     });
                 });
+                $$("#actualizar_usuario").on("tap", function () {
+                    var url = servicio + "patch/usuario";
+                    usuario.correo = $$("#correoNuevo").val();
+                    usuario.nombre = $$("#nombreNuevo").val();
+                    usuario.apellido = $$("#apellidoNuevo").val();
+                    usuario.clave = $$("#claveNuevo").val();
+                    usuario.claveConfirmacion = $$("#claveNuevoConfirmacion").val();
+                });
             });
 
             function message(html) {
@@ -262,6 +249,13 @@
                         return html[i].innerHTML.split(":")[1];
                     }
                 }
+            }
+
+            function cargarDatosUsuarioActualizar() {
+                $$("#correo_actualizar").val(sessionStorage.getItem("correo"));
+                $$("#nombre_actualizar").val(sessionStorage.getItem("nombre"));
+                $$("#apellido_actualizar").val(sessionStorage.getItem("apellido"));
+                $$("#clave_actualizar").val('clave');
             }
 
         </script>
