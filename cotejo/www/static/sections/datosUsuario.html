@@ -1,22 +1,22 @@
-<section id="splash" data-transition="slide">
+<section id="splash" data-transition="slide" onload="cargarDatosUsuarioActualizar()">
     <article class="active splash">
-        <img src="http://cdn.tapquo.com/lungo/logo.png" class="logo"/>
+        <img src="img/logo.png" class="logo"/>
         <div class="form">
             <fieldset data-icon="user">
-                <input type="email" id="login_correo" placeholder="Correo" readonly="true"/>
+                <input type="email" id="correo_actualizar" placeholder="Correo" value="" readonly/>
             </fieldset>
             <fieldset data-icon="user">
-                <input type="text" id="nombre" placeholder="Nombre"/>
+                <input type="text" id="nombre_actualizar" placeholder="Nombre" value=""/>
             </fieldset>
             <fieldset data-icon="user">
-                <input type="text" id="apellido" placeholder="Apellidos"/>
+                <input type="text" id="apellido_actualizar" placeholder="Apellidos" value=""/>
             </fieldset>
             <fieldset data-icon="asterisk">
-                <input type="password" id="clave" placeholder="Clave"/>
+                <input type="password" id="clave_actualizar" placeholder="Clave" value=""/>
             </fieldset>
 
             <br/>
-            <button class="anchor" data-icon="user" data-label="Actualizar Usuario"></button>
+            <a href="#" id="actualizar_usuario" class="button anchor" data-icon="user" data-label="Actualizar Usuario"></a>
             <button data-view-section="back" class="secondary anchor" data-icon="home" data-label="Regresar"></button>
         </div>
     </article>
