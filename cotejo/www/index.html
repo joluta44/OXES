@@ -240,6 +240,7 @@
                     usuario.apellido = $$("#apellidoNuevo").val();
                     usuario.clave = $$("#claveNuevo").val();
                     usuario.claveConfirmacion = $$("#claveNuevoConfirmacion").val();
+                    alert(usuario);
                 });
             });
 
@@ -256,6 +257,10 @@
                 $$("#nombre_actualizar").val(sessionStorage.getItem("nombre"));
                 $$("#apellido_actualizar").val(sessionStorage.getItem("apellido"));
                 $$("#clave_actualizar").val('clave');
+            }
+            
+            function actualizarUsuario() {
+                alert('hola');
             }
 
         </script>
