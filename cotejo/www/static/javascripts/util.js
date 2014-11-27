@@ -1,5 +1,5 @@
 var servicio = "http://oxes-cotejo.rhcloud.com/webresources/";
-//var servicio = "http://10.1.244.33:8081/webresources/";
+//var servicio = "http://localhost:8081/webresources/";
 function message(e) {
     var html = $.parseHTML(e.responseText)
     for (var i = 0; i < html.length; i++) {
