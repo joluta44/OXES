@@ -5,7 +5,7 @@ var usuario = {
 };
 
 function actualizarUsuario() {
-    var url = servicio + "generic/patch/usuario";
+    var url = servicio + "generic/put/usuario";
     usuario.correo = sessionStorage.getItem("correo");
     usuario.nombre = $$("#nombre_actualizar").val();
     usuario.apellido = $$("#apellido_actualizar").val();
@@ -14,18 +14,12 @@ function actualizarUsuario() {
 
     $.ajax({
         url: url,
-        type: 'POST',
+        type: 'PUT',
         data: JSON.stringify(usuario),
         dataType: 'json',
         contentType: 'application/json',
         success: function (resp) {
-            Lungo.Router.section("main_section");
-            sessionStorage["codigo"] = resp.codigo;
-            sessionStorage["correo"] = resp.correo;
-            sessionStorage["nombre"] = resp.nombre;
-            sessionStorage["apellido"] = resp.apellido;
-            $$("#login_correo").html(sessionStorage.getItem("correo"));
-            $$("#login_nombre").html(sessionStorage.getItem("nombre") + ' ' + sessionStorage.getItem("apellido"));
+            alert('actualización completa.')
         },
         error: function (e) {
             var mensaje = message(e);
