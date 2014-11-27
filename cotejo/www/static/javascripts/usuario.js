@@ -6,6 +6,7 @@ var usuario = {
 
 function actualizarUsuario() {
     var url = servicio + "generic/put/usuario";
+    usuario.codigo = sessionStorage.getItem("codigo");
     usuario.correo = sessionStorage.getItem("correo");
     usuario.nombre = $$("#nombre_actualizar").val();
     usuario.apellido = $$("#apellido_actualizar").val();
@@ -36,5 +37,4 @@ function cargarDatosUsuarioActualizar() {
     $$("#correo_actualizar").val(sessionStorage.getItem("correo"));
     $$("#nombre_actualizar").val(sessionStorage.getItem("nombre"));
     $$("#apellido_actualizar").val(sessionStorage.getItem("apellido"));
-    $$("#clave_actualizar").val('clave');
 }
