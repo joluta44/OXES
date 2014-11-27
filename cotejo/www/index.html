@@ -155,11 +155,11 @@
             });
 
             Lungo.ready(function () {
-                var servicio = "http://oxes-cotejo.rhcloud.com/webresources/generic/";
-                //var servicio = "http://10.1.244.33:8081/webresources/generic/";
-                var usuario = {
-                    nombre: null, clave: null, claveConfirmacion: null, correo: null, edad: 0, listaGoles: null, apellido: null
-                };
+                var servicio = "http://oxes-cotejo.rhcloud.com/webresources/";
+                //var servicio = "http://10.1.244.33:8081/webresources/";
+                //var usuario = {
+                  //  nombre: null, clave: null, claveConfirmacion: null, correo: null, edad: 0, listaGoles: null, apellido: null
+                //};
                 if (sessionStorage.getItem("correo"))
                 {
                     Lungo.Router.section("main_section");
@@ -168,7 +168,7 @@
                 {
                     $$("#login").on("tap", function () {
 
-                        var url = servicio + "post/validarUsuario";
+                        var url = servicio + "generic/post/validarUsuario";
                         usuario.correo = $$("#correo").val();
                         usuario.clave = $$("#clave").val();
 
@@ -205,7 +205,7 @@
                 });
                 $$("#almacenar_usuario").on("tap", function () {
 
-                    var url = servicio + "post/usuario";
+                    var url = servicio + "generic/post/usuario";
                     usuario.correo = $$("#correoNuevo").val();
                     usuario.nombre = $$("#nombreNuevo").val();
                     usuario.apellido = $$("#apellidoNuevo").val();
@@ -244,26 +244,9 @@
                 });
             });
 
-            function message(html) {
-                for (var i = 0; i < html.length; i++) {
-                    if (html[i].innerHTML != null && html[i].innerHTML.indexOf('java.lang') !== -1) {
-                        return html[i].innerHTML.split(":")[1];
-                    }
-                }
-            }
-
-            function cargarDatosUsuarioActualizar() {
-                $$("#correo_actualizar").val(sessionStorage.getItem("correo"));
-                $$("#nombre_actualizar").val(sessionStorage.getItem("nombre"));
-                $$("#apellido_actualizar").val(sessionStorage.getItem("apellido"));
-                $$("#clave_actualizar").val('clave');
-            }
-            
-            function actualizarUsuario() {
-                alert('hola');
-            }
-
         </script>
         <script src="static/javascripts/app.js"></script>
+        <script src="static/javascripts/usuario.js"></script>
+        <script src="static/javascripts/util.js"></script>
     </body>
 </html>
