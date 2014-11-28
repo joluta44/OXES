@@ -5,7 +5,7 @@ var usuario = {
 };
 
 function actualizarUsuario() {
-    var url = servicio + "generic/put/usuario";
+    var url = servicio + "generic/post/actualizar";
     usuario.codigo = sessionStorage.getItem("codigo");
     usuario.correo = sessionStorage.getItem("correo");
     usuario.nombre = $$("#nombre_actualizar").val();
@@ -15,7 +15,7 @@ function actualizarUsuario() {
 
     $.ajax({
         url: url,
-        type: 'PUT',
+        type: 'POST',
         data: JSON.stringify(usuario),
         dataType: 'json',
         contentType: 'application/json',
