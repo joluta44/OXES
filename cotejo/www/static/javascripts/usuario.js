@@ -5,7 +5,7 @@ var usuario = {
 };
 
 function actualizarUsuario() {
-    var url = servicio + "generic/post/actualizar";
+    var url = servicio + "generic/put/usuario";
     usuario.codigo = sessionStorage.getItem("codigo");
     usuario.correo = sessionStorage.getItem("correo");
     usuario.nombre = $$("#nombre_actualizar").val();
