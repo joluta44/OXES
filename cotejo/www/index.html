@@ -155,7 +155,7 @@
             });
 
             Lungo.ready(function () {
-                var servicio = "http://oxes-cotejo.rhcloud.com/webresources/";
+                //var servicio = "http://oxes-cotejo.rhcloud.com/webresources/";
                 //var servicio = "http://10.1.244.33:8081/webresources/";
                 //var usuario = {
                   //  nombre: null, clave: null, claveConfirmacion: null, correo: null, edad: 0, listaGoles: null, apellido: null
@@ -188,10 +188,9 @@
                                 $$("#login_nombre").html(sessionStorage.getItem("nombre") + ' ' + sessionStorage.getItem("apellido"));
                             },
                             error: function (e) {
-                                var html = $.parseHTML(e.responseText)
-                                var mensaje = message(html);
+                                var mensaje = message(e);
                                 if (mensaje == null) {
-                                    alert('Error al crear el usuario, contacte a soporte');
+                                    mensajeSoporte();
                                 } else {
                                     alert(mensaje);
                                 }
