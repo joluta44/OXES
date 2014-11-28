@@ -2,9 +2,11 @@ var servicio = "http://oxes-cotejo.rhcloud.com/webresources/";
 //var servicio = "http://localhost:8081/webresources/";
 function message(e) {
     var html = $.parseHTML(e.responseText)
-    for (var i = 0; i < html.length; i++) {
-        if (html[i].innerHTML != null && html[i].innerHTML.indexOf('java.lang') !== -1) {
-            return html[i].innerHTML.split(":")[1];
+    if (html != null) {
+        for (var i = 0; i < html.length; i++) {
+            if (html[i].innerHTML != null && html[i].innerHTML.indexOf('java.lang') !== -1) {
+                return html[i].innerHTML.split(":")[1];
+            }
         }
     }
 }
