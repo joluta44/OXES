@@ -129,7 +129,7 @@
             <nav data-control="groupbar" data-article="juegoen misequipos">
                 <a href="#" data-view-article="juegoen" data-icon="checkmark" data-label="Juego En"></a>
                 <a href="#" data-view-article="misequipos" data-label="Mis Equipos"></a>
-                  </nav>			
+            </nav>			
 
             <article id="main-article" class="list indenteds scroll">
                 <ul>
@@ -158,17 +158,10 @@
             });
 
             Lungo.ready(function () {
-                //var servicio = "http://oxes-cotejo.rhcloud.com/webresources/";
-                //var servicio = "http://10.1.244.33:8081/webresources/";
-                //var usuario = {
-                //  nombre: null, clave: null, claveConfirmacion: null, correo: null, edad: 0, listaGoles: null, apellido: null
-                //};
-                if (sessionStorage.getItem("correo"))
-                {
+                if (sessionStorage.getItem("correo")) {
                     Lungo.Router.section("main_section");
                 }
-                else
-                {
+                else {
                     $$("#login").on("tap", function () {
 
                         var url = servicio + "generic/post/validarUsuario";
@@ -225,26 +218,17 @@
                             alert('Usuario creado correctamente.');
                         },
                         error: function (e) {
-                            var html = $.parseHTML(e.responseText)
-                            var mensaje = message(html);
+                            var mensaje = message(e);
                             if (mensaje == null) {
-                                alert('Error al crear el usuario, contacte a soporte');
+                                mensajeSoporte();
                             } else {
                                 alert(mensaje);
                             }
                         }
                     });
                 });
-                $$("#actualizar_usuario").on("tap", function () {
-                    var url = servicio + "patch/usuario";
-                    usuario.correo = $$("#correoNuevo").val();
-                    usuario.nombre = $$("#nombreNuevo").val();
-                    usuario.apellido = $$("#apellidoNuevo").val();
-                    usuario.clave = $$("#claveNuevo").val();
-                    usuario.claveConfirmacion = $$("#claveNuevoConfirmacion").val();
-                    alert(usuario);
-                });
             });
+
 
         </script>
         <script src="static/javascripts/app.js"></script>
