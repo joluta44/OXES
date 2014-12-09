@@ -27,7 +27,7 @@ function crearEvento() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (resp) {
-            alert('actualización completa.')
+            alert('¡¡¡ Evento Creado !!!');
         },
         error: function (e) {
             var mensaje = message(e);
