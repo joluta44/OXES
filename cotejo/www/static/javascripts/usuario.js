@@ -38,3 +38,4 @@ function cargarDatosUsuarioActualizar() {
     $$("#nombre_actualizar").val(sessionStorage.getItem("nombre"));
     $$("#apellido_actualizar").val(sessionStorage.getItem("apellido"));
 }
+
