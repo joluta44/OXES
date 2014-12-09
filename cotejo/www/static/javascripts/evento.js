@@ -39,3 +39,27 @@ function crearEvento() {
         }
     });
 }
+
+function cargarEventosUsuario() {
+    var url = servicio + "evento/get/eventos/" + sessionStorage.getItem("codigo");
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: {},
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (resp) {
+            alert(resp);
+        },
+        error: function (e) {
+            var mensaje = message(e);
+            if (mensaje == null) {
+                mensajeSoporte();
+            } else {
+                alert(mensaje);
+            }
+        }
+    });
+
+}
